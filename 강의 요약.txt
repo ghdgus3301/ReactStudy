@@ -1,0 +1,140 @@
+* creat-react-app 강의영상
+ - npm과 npx 의 차이 : npm은 라이브러리를 설치해서 계속 사용할 수 있도록 저장까지 함 npx은 저장은 하지않고 한번만 라이브러리 사용 후 삭제
+ - react를 클라이언트로, express를 서버로 사용
+
+* 컴포넌트의 이름은 반드시 영어 대문자로 시작
+* 컴포넌트는 다른 컴포넌트가 사용할 수 있도록 export 해주어야 함
+* 다른 컴포넌트가 사용할때 import 해주어야 함
+
+*rfce tab키 누르면 펑션 자동생성
+
+* JSX
+ - 1. camelcase : 클래스이름은 두번째 명사는 대문자
+ - 2. css는 {두번후 옵젝형식으로
+ - return문 안에서 if문을 바로 사용할 시 삼항연산자(? : ) 사용
+ - 변수이름.map((r,b) => { return <p/>{r}; })
+
+* useState
+ - const [state, setstate] = useState("");
+ - 첫번째 인자(state)는 변수의 이름
+ - 두번째 인자(setstate)는 State를 바꿔주는 함수
+ - useState 함수 인자 : state의 초기 Type, 값
+ - 1. state의 값은 바꿀때는 항상 setstate함수 사용
+ - 2. setstate를 html 태그의 on 속성으로 호출시 함수로 감싸야함
+
+* 자바스크립트 문법
+ - 복사 배열방법 : let arr = [...변수이름];
+ - Arrow Function : const 함수명 = () => { 함수내용 }
+
+*react-router-dom
+ - index.js에 import {BrowserRouter, Routes, Route} from 'react-router-dom';
+ - 이후에 ReactDom.render함수 안에 <BrowserRouter><Routes><Router>순으로 생성
+ - 네비바에 import {Link} from "react-router-dom"; 후 <Link to="/경로">하면 <a>태그같이 사용가능
+
+*useEffect함수
+ - useEffect(() => { 컴포넌트가 나타날 때 실행될 코드
+      return() => {
+	컴포넌트가 죽을때 실행될 코드		
+      }
+    }, [useEffect함수가 실행될 조건])
+
+
+
+* express
+ - 1.서버 폴더에 npm init -y
+ - 2. npm install express --save
+ - 3. index.js 생성 후 const express = require('express');
+		const app = express();
+		const port = 5000;
+
+		app.listen(port, () => { //서버여는 함수
+    		console.log(`Example app listening on port ${port}`)
+  		});
+
+		app.get('/경로', (req(요청), res(응답)) => { //서버 응답함수
+  		res.send('Hello World!')
+		});
+ -4. 클라이언트 폴더에서 npm run-script build   (서버로 클라이언트 폴더에 있는 index.html을 보내기위한 압축빌드)
+ -5. 서버 폴더에서 npm i path --save
+ -6. 서버 폴더에서 index.js 파일에 const path = require("path");
+ -7. 서버 폴더에서 index.js 파일에 app.get('/', (req, res) => { //서버 응답함수
+  		res.sendFile(path.join(__dirname,"../client/build/index.html"));
+		});
+ -8. npm i nodemon --save (코드 수정 시 서버 껏다켯다 안해도 됌)
+ -9. npm start 후 url 가보기
+
+* mongoDB연결
+ - username : KoHongHyun password : k92092812
+ - 1. 서버쪽 폴더에서 npm i mongoose --save
+ - 2. index.js파일에 const mongoose = require('mongoose'); , 그리고 url 몽고db url복사해놈
+ - 3. app.listen함수안에 mongoose.connect('복사해둔 url');
+
+* axios
+ - 1. 클라이언트쪽 폴더에서 npm i axios --save
+ - 2. 사용할곳에 useEffect 함수안에 axios.post 함수 생성
+
+* proxymiddleware
+ - 1. 클라이언트/src 폴더에 setupProxy.js 파일 생성
+ - 2. const { createProxyMiddleware } = require("http-proxy-middleware");
+
+	module.exports = function(app) {
+    	app.use(
+        	"/api",
+       	 createProxyMiddleware({
+            	target : "http://localhost:5000",
+           	 changeOrigin : true,        })
+    	);
+	};
+ -3. npm i http-proxy-middleware --save
+ -4. 서버키고 클라이언트 실행
+
+* Mongoose Model
+ - 1.서버폴더에 Model폴더 생성후 Post.js 파일 생성
+ - 2. 	const mongoose = require('mongoose');
+	const postSchema = new mongoose.Schema({
+    	title : String,
+    	content : String,
+
+	},
+	{collation : "posts"}
+	);
+	const Post = mongoose.model("Post", postSchema);
+	module.exports = {Post};
+ -3. 서버폴더에 index.js파일에 const {Post} = require("모델폴더파일경로")
+ -4. const 변수이름 = new Post({ title : ...})입력
+
+* BootStrap
+ - 1. npm i react-bootstrap bootstrap@5.1.3
+ - 2. 클라이언트 index.html 파일에 <link
+
+    	rel="stylesheet"
+    	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+    	integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+    	crossorigin="anonymous"
+   	 />
+ - 3. 쓸 js파일에서 import 
+
+* Emotion
+ - 1. npm i @emotion/css @emotion/react @emotion/styled
+ - 2. client폴더에 src에 Style폴더 생성 후 CSS.js 파일 생성
+ - 3. 	import styled from '@emotion/styled'
+
+	const Button = styled.button`
+  	padding: 32px;
+  	background-color: hotpink;
+  	font-size: 24px;
+ 	border-radius: 4px;
+  	color: black;
+ 	font-weight: bold;
+  	&:hover {
+    	color: white;
+  	}
+	`;
+ - 4. export default Button;
+
+* 몽고db sql문
+ - 모델.find().exec().then((내용물) => {
+   res.status(200)json({success : true, postList : 내용물});   -> 순차적으로 데이터베이스를 조회하면서 내용물에 저장 후 그 내용물들을 postList에 저장
+ - 모델.find({name : "ko"}).exec().then() -> 이런식으로 조건문도 사용가능
+ - 모델.updateOne({변경할 변수이름}, {$inc : {변경할 값}}); -> $set은 완전히 새로운정보로 업데이트
+ - 모델.deleteOne( {삭제할 변수조건})
