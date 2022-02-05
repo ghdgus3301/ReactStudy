@@ -142,3 +142,13 @@
 * Redux
  - useState로 만든 state들을 쉽게 관리하기 위한 라이브러리
  - firebase 사용
+ - 1. npm i @reduxjs/toolkit react-redux
+ - 2. client 폴더에 Reducer 폴더 생성후 store.js파일 생성
+ - 3. import { configureStore} from "@reduxjs/toolkit";
+
+	export default configureStore({
+    	reducer : {},
+	});
+ -4. 클라이언트 index.js 파일에서 import store from "./Reducer/store.js";
+import { Provider } from "react-redux";
+ -5. 

@@ -7,8 +7,8 @@ router.post("/register", (req,res) => {
     let tepm = req.body;
     Counter.findOne({name : "counter"}).then((doc) => {
         tepm.userNum = doc.userNum;
-        const userData = new User(req.body);
-    userData.save().then(() => {
+        const userData = new User(tepm);
+        userData.save().then(() => {
         Counter.updateOne({name: "counter", $inc : {userNum : 1}}).then(() => {
             res.status(200).json({success : true});
         })

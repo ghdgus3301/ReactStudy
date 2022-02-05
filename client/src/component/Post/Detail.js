@@ -4,13 +4,16 @@ import axios from "axios";
 import { PostDiv,SpinnerDiv, Post, BtnDiv,} from "../../Style/PostDetailCSS.js";
 import { Spinner } from 'react-bootstrap';
 import {UploadButtonDiv, UploadDiv, UploadForm} from "../../Style/UploadCSS.js";
+import { useSelector } from 'react-redux';
 
 
 function Detail() {
   let params = useParams();
   const [PostInfo, setPostInfo] = useState({});
   const [Flag, setFlag] = useState(false);
+  const user = useSelector((state) => state.user);
   let navigate = useNavigate();
+
   useEffect(() => {
     let body = {
         postNum : params.postNum
@@ -51,16 +54,17 @@ function Detail() {
             <>
             <Post>
                 <h1>{PostInfo.title}</h1>
+                <h1>{PostInfo.author.displayName}</h1>
                 {PostInfo.image ? ( 
                 <img src = {PostInfo.image} alt="" style={{width : "100%", height : 'auto'}}></img> ) : null}
                 <p>{PostInfo.content}</p>
             </Post>
-            <BtnDiv>
+            {user.uid === PostInfo.author.uid && ( <BtnDiv>
                 <Link to = {`/edit/${PostInfo.postNum}`}>
                 <button className='edit'>수정</button>
                 </Link>
                 <button className='delete' onClick={() => DeleteHandler()}>삭제</button>
-            </BtnDiv>
+            </BtnDiv>)}
             </>
         ) : (
             <SpinnerDiv>

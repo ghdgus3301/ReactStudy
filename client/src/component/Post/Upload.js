@@ -4,6 +4,7 @@ import {useNavigate} from "react-router-dom";
 import {UploadButtonDiv, UploadDiv, UploadForm} from "../../Style/UploadCSS.js";
 import axios from "axios";
 import ImageUpload from "./ImageUpload.js";
+import {useSelector} from "react-redux";
 
 
 function Upload(props) {
@@ -11,7 +12,14 @@ function Upload(props) {
     const [Content, setContent] = useState("내용 입력");
     const [Image, setImage] = useState("");
     let navigate = useNavigate();
+    const user = useSelector((state) => state.user);
     
+    useEffect(() => {
+      if(!user.accessToken){
+        alert("로그인한 회원만 접근 가능한 페이지입니다.");
+        navigate("/login");
+      }
+    },[])
 
     const onSubmit = (e) => {
         e.preventDefault();
@@ -23,6 +31,7 @@ function Upload(props) {
           title : Title,
           content : Content,
           image : Image,
+          uid : user.uid,
         }
 
         axios.post("/api/post/submit", body).then((response) => {

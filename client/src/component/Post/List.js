@@ -18,11 +18,13 @@ function List(props) {
   return (
     <ListDiv>
         {PostList.map((post, idx) => {
+            console.log(post);
             return (
-                
+
                     <ListItem key = {idx}>
                         <Link to = {`/post/${post.postNum}`}>
                         <p className = "title">제목 : {post.title}</p>
+                        <p className = "author">글 작성자 : {post.author.displayName}</p>
                         <p>내용 : {post.content}</p>
                         </Link>
                     </ListItem>
