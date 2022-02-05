@@ -12,6 +12,7 @@ app.use("/image", express.static("./image"));
 app.use(express.json());
 app.use(express.urlencoded({ extended : true}));
 app.use("/api/post", require("./Router/post.js"))
+app.use("/api/user", require("./Router/user.js"))
 
 //mongodb+srv://KoHongHyun:k92092812@cluster0.facnr.mongodb.net/myFirstDatabase?retryWrites=true&w=majority
 

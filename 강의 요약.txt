@@ -138,3 +138,7 @@
  - 모델.find({name : "ko"}).exec().then() -> 이런식으로 조건문도 사용가능
  - 모델.updateOne({변경할 변수이름}, {$inc : {변경할 값}}); -> $set은 완전히 새로운정보로 업데이트
  - 모델.deleteOne( {삭제할 변수조건})
+
+* Redux
+ - useState로 만든 state들을 쉽게 관리하기 위한 라이브러리
+ - firebase 사용
