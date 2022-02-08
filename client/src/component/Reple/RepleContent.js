@@ -1,7 +1,9 @@
 import React, {useState, useEffect, useRef} from 'react';
-import { RepleListDiv, RepleContentDiv, RepleUploadDiv} from "../../Style/RepleCSS.js" 
+import { RepleContentDiv, RepleUploadDiv} from "../../Style/RepleCSS.js" 
 import { useSelector } from 'react-redux';
 import axios from 'axios';
+import Avatar from "react-avatar";
+
 function RepleContent(props) {
 
     const [ModalFlag, setModalFlag] = useState(false);
@@ -49,10 +51,13 @@ function RepleContent(props) {
     }
 
     return(
-        <div>
+        
             <RepleContentDiv>
                 <div className='author'>
-                    <p className='Name'>{props.reple.author.displayName}</p>
+                    <div className='userInfo'>
+                        <Avatar size = "30" round ={true} src ={props.reple.author.photoURL} style ={{border : "1px solid #c6c6c6"}}></Avatar>
+                        <p className='Name'>{props.reple.author.displayName}</p>
+                    </div>
                     {
                         props.reple.author.uid === user.uid && <div className='modalControl'>
                         <span onClick={() => setModalFlag(true)}>...</span>
@@ -85,7 +90,7 @@ function RepleContent(props) {
                 </RepleUploadDiv>
                 ) : <p>{props.reple.reple}</p>}
             </RepleContentDiv>
-        </div> 
+        
     );
 }
 

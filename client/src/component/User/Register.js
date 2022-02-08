@@ -41,6 +41,7 @@ function Register() {
 
     await createdUser.user.updateProfile({
         displayName : Name,
+        photoURL : "https://kr.object.ncloudstorage.com/react-community/user/profile.png",
     });
 
     console.log(createdUser.user);
@@ -48,13 +49,14 @@ function Register() {
         email : createdUser.user.multiFactor.user.email,
         displayName : createdUser.user.multiFactor.user.displayName,
         uid : createdUser.user.multiFactor.user.uid,
+        photoURL : "https://kr.object.ncloudstorage.com/react-community/user/profile.png",
 
     };
     axios.post("/api/user/register", body).then((response) => {
         setFlag(false);
         if(response.data.success){
             //회원가입 성공시
-            navigate("/login");
+            navigate("/");
         }else{
             //회원가입 실패시
             return alert("회원가입이 실패하였습니다");

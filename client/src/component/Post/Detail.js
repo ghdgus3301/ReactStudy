@@ -2,9 +2,8 @@ import React from 'react';
 import { Link, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { PostDiv, Post, BtnDiv,} from "../../Style/PostDetailCSS.js";
-import {UploadButtonDiv, UploadDiv, UploadForm} from "../../Style/UploadCSS.js";
 import { useSelector } from 'react-redux';
-
+import Avatar from "react-avatar";
 
 function Detail(props) {
   let params = useParams();
@@ -30,8 +29,11 @@ function Detail(props) {
   return (
     <PostDiv>
             <Post>
-                <h1>{props.PostInfo.title}</h1>
-                <h1>{props.PostInfo.author.displayName}</h1>
+                <h1>제목 : {props.PostInfo.title}</h1>
+                <p className='author'>
+                    <Avatar size = "40" round ={true} src ={props.PostInfo.author.photoURL} style ={{border : "1px solid #c6c6c6"}}></Avatar>
+                    {props.PostInfo.author.displayName}
+                </p>
                 {props.PostInfo.image ? ( 
                 <img src = {props.PostInfo.image} alt="" style={{width : "100%", height : 'auto'}}></img> ) : null}
                 <p>{props.PostInfo.content}</p>

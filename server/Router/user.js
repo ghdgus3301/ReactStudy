@@ -2,6 +2,7 @@ var express = require("express");
 var router = express.Router();
 const {Counter} = require("../Model/Counter.js");
 const {User} = require("../Model/User.js");
+const setUpload = require("../util/upload.js");
 
 router.post("/register", (req,res) => {
     let tepm = req.body;
@@ -37,4 +38,23 @@ router.post("/namecheck", (req,res) => {
         res.status(400).json({success : false});
     });
 });
+
+router.post("/profile/img", setUpload("react-community2/user"), (req,res,next) => {
+    console.log(res.req);
+    res.status(200).json({ success : true, filePath : res.req.file.location})
+        
+    });
+
+
+router.post("/profile/update", (req,res) => {
+    let temp = {
+        photoURL : req.body.photoURL,
+    }
+    User.updateOne({uid : req.body.uid}, {$set : temp}).exec().then((doc) => {
+        res.status(200).json({success : true});
+    }).catch((err) => {
+        res.status(400).json({success : false});
+    })
+})
+
 module.exports = router;

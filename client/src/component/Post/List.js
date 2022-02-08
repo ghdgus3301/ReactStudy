@@ -3,6 +3,8 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import {ListDiv,ListItem} from "../../Style/ListCSS";
 import {Link} from "react-router-dom";
+import Avatar from "react-avatar";
+
 function List(props) {
     const [PostList, setPostList] = useState([]);
     useEffect(() => {
@@ -24,7 +26,8 @@ function List(props) {
                     <ListItem key = {idx}>
                         <Link to = {`/post/${post.postNum}`}>
                         <p className = "title">제목 : {post.title}</p>
-                        <p className = "author">글 작성자 : {post.author.displayName}</p>
+                        <Avatar size = "40" round ={true} src ={post.author.photoURL} style ={{border : "1px solid #c6c6c6"}}></Avatar>
+                        <p className = "author">{post.author.displayName}</p>
                         <p>내용 : {post.content}</p>
                         </Link>
                     </ListItem>

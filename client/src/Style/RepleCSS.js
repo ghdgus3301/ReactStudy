@@ -67,9 +67,6 @@ const RepleContentDiv = styled.div`
   box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.03), 0px 7.5px 6px rgba(0, 0, 0, 0.1);
   padding: 20px 10px;
   margin-bottom: 10px;
-  .Name {
-    color : grey;
-  }
   .author {
     display: flex;
     margin-bottom: 5px;

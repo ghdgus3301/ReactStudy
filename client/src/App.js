@@ -13,6 +13,7 @@ import Register from './component/User/Register';
 import { useDispatch } from 'react-redux';
 import {loginUser, clearUser} from "./Reducer/userSlice.js";
 import firebase from "./firebase.js";
+import MyPage from "./component/User/MyPage";
 
 function App() {
   const dispatch = useDispatch();
@@ -37,6 +38,7 @@ function App() {
     <Route path = '/edit/:postNum' element={<Edit></Edit>}></Route>
     <Route path = '/login' element={<Login></Login>}></Route>
     <Route path = '/register' element={<Register></Register>}></Route>
+    <Route path = '/mypage' element={<MyPage></MyPage>}></Route>
     </Routes>
     </>
   );
