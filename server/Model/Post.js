@@ -8,6 +8,10 @@ const postSchema = new mongoose.Schema({
     author : {
         type : mongoose.Schema.Types.ObjectId,
         ref : "User",
+    },
+    repleNum : {
+        type : Number,
+        default : 0,
     }
 },
 {collection : "posts"}

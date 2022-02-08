@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import LoginDiv from '../../Style/UserCSS';
 import firebase from '../../firebase.js';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import {useSelector} from "react-redux";
 
 
 function Register() {
@@ -11,7 +12,16 @@ function Register() {
   const [PW, setPW] = useState("");
   const [PWConfirm, setPWConfirm] = useState("");
   const [Flag, setFlag] = useState(false);
+  const [NameCheck, setNameCheck] = useState(false);
+  const [NameInfo, setNameInfo] = useState("");
+  const user = useSelector((state) => state.user);
   let navigate = useNavigate();
+
+  useEffect(() => {
+    if(user.accessToken){
+        navigate("/");
+      }
+  },[])
 
   const RegisterFunc = async (e) => { //async , await (비동기함수 : 코드가 실행될때까지 기다림)
     setFlag(true);
@@ -21,6 +31,9 @@ function Register() {
     }
     if(PW != PWConfirm){
         return alert("비밀번호와 비밀번호 확인 값이 같지 않습니다.");
+    }
+    if(!NameCheck){
+        return alert("닉네임 중복검사를 진행해주세요.")
     }
     let createdUser = await firebase
     .auth()
@@ -49,11 +62,33 @@ function Register() {
     })
   }
 
+  const NameCheckFunc = async (e) => {
+    e.preventDefault();
+    if(!Name){
+        return alert("닉네임을 입력해주세요.");
+    }
+    let body = {
+        displayName : Name,
+    }
+    await axios.post("/api/user/namecheck", body).then((response) => {
+        if(response.data.success){
+            if(response.data.check){
+                setNameCheck(true);
+                setNameInfo("사용 가능한 닉네임입니다.");
+            }else{
+            setNameInfo("사용 불가능한 닉네임입니다.")}
+        }
+    });
+  }
+  
+
   return(
     <LoginDiv>
         <form>
-        <label>이름</label>
-        <input type = "name" value={Name} onChange = {(e) => setName(e.currentTarget.value)}></input>
+        <label>닉네임</label>
+        <input type = "name" value={Name} onChange = {(e) => setName(e.currentTarget.value)} disabled = {NameCheck}></input>
+        {NameInfo}
+        <button onClick={(e) => NameCheckFunc(e)}>닉네임 중복검사</button>
         <label>이메일</label>
         <input type = "email" value={Email} onChange = {(e) => setEmail(e.currentTarget.value)}></input>
         <label>비밀번호</label>

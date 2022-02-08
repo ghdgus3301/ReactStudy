@@ -1,14 +1,23 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import LoginDiv from '../../Style/UserCSS';
 import { MyPageDiv } from '../../Style/UserCSS';
 import { useNavigate } from 'react-router-dom';
 import firebase from '../../firebase.js';
+import {useSelector} from "react-redux";
 
 function Login() {
   const [Email,setEmail] = useState("");
   const [PW,setPW] = useState("");
   const [ErrorMsg, setErrorMsg] = useState("");
   let navigate = useNavigate();
+  const user = useSelector((state) => state.user);
+
+  useEffect(() => {
+    if(user.accessToken){
+        alert("로그인한 회원은 접근 불가능한 페이지입니다.");
+        navigate("/");
+      }
+  },[])
 
   const SignInFucn = async (e) => { 
     e.preventDefault();

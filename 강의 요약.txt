@@ -152,3 +152,6 @@
  -4. 클라이언트 index.js 파일에서 import store from "./Reducer/store.js";
 import { Provider } from "react-redux";
  -5. 
+
+* useOnClickOutside
+ - 다른 곳 클릭하면 정보창 안보여주는 함수
