@@ -4,7 +4,7 @@ import './App.css';
 import Test from './Test';
 import {Routes, Route} from 'react-router-dom';
 import Heading from './component/Heading.js';
-import List from './component/Post/List.js';
+import MainPage from "./component/MainPage.js";
 import Upload from './component/Post/Upload.js';
 import PostArea from "./component/Post/PostArea";
 import Edit from "./component/Post/Edit.js";
@@ -32,7 +32,7 @@ function App() {
     <>
     <Heading></Heading>
     <Routes>
-    <Route path = '/' element={<List></List>}></Route>
+    <Route path = '/' element={<MainPage></MainPage>}></Route>
     <Route path = '/upload' element={<Upload></Upload>}></Route>
     <Route path = '/post/:postNum' element={<PostArea></PostArea>}></Route>
     <Route path = '/edit/:postNum' element={<Edit></Edit>}></Route>

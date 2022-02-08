@@ -155,3 +155,9 @@ import { Provider } from "react-redux";
 
 * useOnClickOutside
  - 다른 곳 클릭하면 정보창 안보여주는 함수
+
+* 시간 정보 출력하기
+1. npm i moment --save
+2. import moment from "moment";
+   import "moment/locale/ko";
+3. 
